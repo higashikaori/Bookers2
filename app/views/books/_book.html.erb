@@ -1,10 +1,10 @@
 <!--ユーザー情報-->
 <h2>User info</h2>
 
-<% if book.user %>
-  <%= image_tag book.user.get_profile_image(100,100) %>aaa
+<% if books.user %>
+  <%= image_tag books.user.get_profile_image(100,100) %>
 <% else %>
-  <%= image_tag current_user.get_profile_image(100,100) %>eee
+  <%= image_tag current_user.get_profile_image(100,100) %>
 <% end %>
 
 <table>
@@ -12,8 +12,8 @@
     <tr>
       <th>name</th>
       <th>
-        <% if book.user %>
-          <%= book.user.name %>
+        <% if books.user %>
+          <%= books.user.name %>
         <% else %>
           <%= current_user.name %>
         <% end %>
@@ -22,8 +22,8 @@
     <tr>
       <th>introduction</th>
       <th>
-        <% if book.user %>
-          <%= book.user.introduction %>
+        <% if books.user %>
+          <%= books.user.introduction %>
         <% else %>
           <%= current_user.introduction %>
         <% end %>
@@ -44,3 +44,4 @@
   <%= f.text_area :body, id: "book_opinion" %><br>
   <%= f.submit 'Create Book' %>
 <% end %>
+
