@@ -1,51 +1,6 @@
+<!--テンプレート-->
+<%= render 'books/book', new_book: @new_book, user: @user %>
 
-
-<!--ユーザー情報-->
-<h2>User info</h2>
-
-<% if @user %>
-  <%= image_tag @user.get_profile_image(100,100) %>
-<% else %>
-  <%= image_tag current_user.get_profile_image(100,100) %>
-<% end %>
-
-<table>
-  <tbody>
-    <tr>
-      <th>name</th>
-      <th>
-        <% if @user %>
-          <%= @user.name %>
-        <% else %>
-          <%= current_user.name %>
-        <% end %>
-      </th>
-    </tr>
-    <tr>
-      <th>introduction</th>
-      <th>
-        <% if @user %>
-          <%= @user.introduction %>
-        <% else %>
-          <%= current_user.introduction %>
-        <% end %>
-        </th>
-    </tr>
-  </tbody>
-</table>
-
-<%= link_to '編集', edit_user_path(current_user.id) %>
-
-
-<!--投稿フォーム-->
-<h2>New book</h2>
-<%= form_with model: @book, url: '/books', method: :post do |f| %>
-  <label for="book_title">Title</label><br>
-  <%= f.text_field :title,autofocus: true, id: "book_title" %><br>
-  <label for="book_opinion">Opinion</label><br>
-  <%= f.text_area :body, id: "book_opinion" %><br>
-  <%= f.submit 'Create Book' %>
-<% end %>
 
 
 <!--usersの詳細-->
@@ -61,7 +16,7 @@
     </tr>
   </thead>
   <tbody>
-    <% @book.each do |book| %>
+    <% @books.each do |book| %>
       <tr>
         <td><%= image_tag book.user.get_profile_image(100,100) %></td>
         <td><%= link_to book.title, book_path(book) %></td>

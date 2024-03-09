@@ -1,8 +1,8 @@
 <!--ユーザー情報-->
 <h2>User info</h2>
 
-<% if books.user %>
-  <%= image_tag books.user.get_profile_image(100,100) %>
+<% if user %>
+  <%= image_tag user.get_profile_image(100,100) %>
 <% else %>
   <%= image_tag current_user.get_profile_image(100,100) %>
 <% end %>
@@ -12,8 +12,8 @@
     <tr>
       <th>name</th>
       <th>
-        <% if books.user %>
-          <%= books.user.name %>
+        <% if user %>
+          <%= user.name %>
         <% else %>
           <%= current_user.name %>
         <% end %>
@@ -22,8 +22,8 @@
     <tr>
       <th>introduction</th>
       <th>
-        <% if books.user %>
-          <%= books.user.introduction %>
+        <% if user %>
+          <%= user.introduction %>
         <% else %>
           <%= current_user.introduction %>
         <% end %>
@@ -37,9 +37,9 @@
 
 <!--投稿フォーム-->
 <h2>New book</h2>
-<%= form_with model: book do |f| %>
+<%= form_with model: new_book, url:'/books', method: :post do |f| %>
   <label for="book_title">Title</label><br>
-  <%= f.text_field :title,autofocus: true, id: "book_title" %><br>
+  <%= f.text_field :title, id: "book_title" %><br>
   <label for="book_opinion">Opinion</label><br>
   <%= f.text_area :body, id: "book_opinion" %><br>
   <%= f.submit 'Create Book' %>
