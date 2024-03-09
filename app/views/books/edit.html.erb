@@ -1,24 +1,30 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-5 mx-auto">
+      <h1>Editing Book</h1>
+
 <!--バリデーション-->
-<% if @book.errors.any? %>
-  <%= @book.errors.count %>errors prohibited this obj from being saved:
-  <ul>
-    <% @book.errors.full_messages.each do |message| %>
-      <li><%= message %></li>
-    <% end %>
-  </ul>
-<% end %>
+      <% if @book.errors.any? %>
+        <h3><%= @book.errors.count %>errors prohibited this obj from being saved:</h3>
+        <ul>
+          <% @book.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      <% end %>
 
 
 <!--編集フォーム-->
-<h1>Editing Book</h1>
+      <%= form_with model: @book do |f| %>
+        <label for="book_title" class="form-label">Title</label><br>
+        <%= f.text_field :title,autofocus: true, id: "book_title", class: 'form-control' %><br>
+        <label for="book_opinion" class="form-label">Opinion</label><br>
+        <%= f.text_area :body, id: "book_opinion", class: 'form-control' %><br>
+        <%= f.submit 'Update Book', class: 'btn btn btn-success mb-3' %>
+      <% end %>
 
-<%= form_with model: @book do |f| %>
-  <label for="book_title">Title</label><br>
-  <%= f.text_field :title,autofocus: true, id: "book_title" %><br>
-  <label for="book_opinion">Opinion</label><br>
-  <%= f.text_area :body, id: "book_opinion" %><br>
-  <%= f.submit 'Update Book' %>
-<% end %>
-
-<%= link_to 'Show', book_path(@book) %> |
-<%= link_to 'Back', books_path %>
+      <%= link_to 'Show', book_path(@book) %> |
+      <%= link_to 'Back', books_path %>
+    </div>
+  </div>
+</div>
