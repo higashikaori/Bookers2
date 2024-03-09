@@ -3,7 +3,7 @@
     <div class="col-sm-12 col-md-5 mx-auto">
       <h2>User info</h2>
 
-      <!--バリデーション-->
+ <!--バリデーション-->
       <% if @user.errors.any? %>
         <%= @user.errors.count %>errors prohibited this obj from being saved:
         <ul>
@@ -13,7 +13,7 @@
         </ul>
       <% end %>
 
-      <!--ユーザー詳細-->
+<!--ユーザー詳細-->
       <%= form_with model: @user do |f| %>
         <label for="user_name" class="form-label">Name</label><br>
         <%= f.text_field :name, autofocus: true, id: "user_name", class: 'form-control' %><br>
