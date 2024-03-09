@@ -1,47 +1,64 @@
+<div class="col-md-3">
+
 <!--ユーザー情報-->
-<h2>User info</h2>
 
-<% if user %>
-  <%= image_tag user.get_profile_image(100,100) %>
-<% else %>
-  <%= image_tag current_user.get_profile_image(100,100) %>
-<% end %>
+  <div class="col">
+  <h2>User info</h2>
 
-<table>
-  <tbody>
-    <tr>
-      <th>name</th>
-      <th>
-        <% if user %>
-          <%= user.name %>
-        <% else %>
-          <%= current_user.name %>
-        <% end %>
-      </th>
-    </tr>
-    <tr>
-      <th>introduction</th>
-      <th>
-        <% if user %>
-          <%= user.introduction %>
-        <% else %>
-          <%= current_user.introduction %>
-        <% end %>
-        </th>
-    </tr>
-  </tbody>
-</table>
+  <% if user %>
+    <%= image_tag user.get_profile_image(100,100) %>
+  <% else %>
+    <%= image_tag current_user.get_profile_image(100,100) %>
+  <% end %>
 
-<%= link_to '編集', edit_user_path(current_user.id) %>
+    <table class="table">
+      <tbody>
+        <tr>
+          <th>name</th>
+          <th>
+            <% if user %>
+              <%= user.name %>
+            <% else %>
+              <%= current_user.name %>
+            <% end %>
+          </th>
+        </tr>
+        <tr>
+          <th>introduction</th>
+          <th>
+            <% if user %>
+              <%= user.introduction %>
+            <% else %>
+              <%= current_user.introduction %>
+            <% end %>
+            </th>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
 
 
-<!--投稿フォーム-->
-<h2>New book</h2>
-<%= form_with model: new_book, url:'/books', method: :post do |f| %>
-  <label for="book_title">Title</label><br>
-  <%= f.text_field :title, id: "book_title" %><br>
-  <label for="book_opinion">Opinion</label><br>
-  <%= f.text_area :body, id: "book_opinion" %><br>
-  <%= f.submit 'Create Book' %>
-<% end %>
+<!--編集ボタン-->
+  <%= link_to edit_user_path(current_user.id) do %>
+    <button type="button" class="btn btn-outline-secondary btn-block">
+      <i class="fa-solid fa-user-gear"></i>
+    </button>
+  <% end %>
 
+
+  <!--投稿フォーム-->
+  <div class="col">
+    <h2 class="mt-4">New book</h2>
+    <%= form_with model: new_book, url:'/books', method: :post do |f| %>
+      <div>
+        <label for="book_title" class="form-label">Title</label>
+        <%= f.text_field :title, id: "book_title", class: 'form-control' %><br>
+        <label for="book_opinion" class="form-label">Opinion</label><br>
+        <%= f.text_area :body, id: "book_opinion", class: 'form-control' %><br>
+      </div>
+      <%= f.submit 'Create Book', class: 'btn btn btn-success mb-3' %>
+    <% end %>
+  </div>
+
+</div>
