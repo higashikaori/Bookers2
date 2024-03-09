@@ -15,11 +15,19 @@
 
 <!--ユーザー詳細-->
       <%= form_with model: @user do |f| %>
-        <label for="user_name" class="form-label">Name</label><br>
-        <%= f.text_field :name, autofocus: true, id: "user_name", class: 'form-control' %><br>
-        <label for="user_introduction" class="form-label">Introduction</label><br>
-        <%= f.text_area :introduction, id: "user_introduction", class: 'form-control' %><br>
-        <%= f.submit 'Update User', class: 'btn btn btn-secondary mb-3' %>
+      <div class="form-group">
+        <label for="user_name" class="form-label">Name</label>
+        <%= f.text_field :name, autofocus: true, id: "user_name", class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label for="user_name" class="form-label">Image</label><br>
+        <%= file_field :image, accept: "image/*", class: 'form-control' %>
+      </div>
+      <div class="form-group">
+        <label for="user_introduction" class="form-label">Introduction</label>
+        <%= f.text_area :introduction, id: "user_introduction", class: 'form-control' %>
+        <%= f.submit 'Update User', class: 'btn btn btn-secondary my-3' %>
+      </div>
       <% end %>
 
     </div>
