@@ -40,10 +40,12 @@
 
 
 <!--編集ボタン-->
+  <% unless user.guest_user? %>
   <%= link_to edit_user_path(user.id) do %>
     <button type="button" class="btn btn-outline-secondary btn-block">
       <i class="fa-solid fa-user-gear"></i>
     </button>
+  <% end %>
   <% end %>
 
 
