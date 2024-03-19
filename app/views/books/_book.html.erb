@@ -31,21 +31,31 @@
             <% else %>
               <%= current_user.introduction %>
             <% end %>
-            </th>
+          </th>
+        </tr>
+        <tr>
+          <th>follows</th>
+          <th><%= link_to user.followings.count, user_followings_path(user) %></th>
+        </tr>
+        <tr>
+          <th>followers</th>
+          <th><%= link_to user.followers.count, user_followers_path(user) %></th>
         </tr>
       </tbody>
     </table>
 
   </div>
 
-
-<!--編集ボタン-->
-  <% unless user.guest_user? %>
-  <%= link_to edit_user_path(user.id) do %>
-    <button type="button" class="btn btn-outline-secondary btn-block">
-      <i class="fa-solid fa-user-gear"></i>
-    </button>
-  <% end %>
+  <% if current_user != user %>
+    <%= render 'relationships/btn', user: user, options: { class: ""} %>
+  <% else %>
+    <% unless user.guest_user? %>
+    <%= link_to edit_user_path(user.id) do %>
+      <button type="button" class="btn btn-outline-secondary btn-block">
+        <i class="fa-solid fa-user-gear"></i>
+      </button>
+    <% end %>
+    <% end %>
   <% end %>
 
 
