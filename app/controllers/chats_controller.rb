@@ -20,13 +20,13 @@ class ChatsController < ApplicationController
   def create
     @chat = current_user.chats.new(chat_params)
     @chat.save
-    redirect_to request.referer
+    # redirect_to request.referer create.js.erbを参照する
   end
 
   def destroy
     @chat = current_user.chats.find(params[:id])
-    @chat.destory
-    redirect_to request.referer
+    @chat.destroy
+    # redirect_to request.referer destroy.js.erbを参照する
   end
 
   private

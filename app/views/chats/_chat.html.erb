@@ -1,0 +1,6 @@
+<div class="right-container d-flex mb-3 justify-content-end">
+  <p id="chat_<%= chat.id %>"><%= chat.message %></p>
+  <%= image_tag current_user.get_profile_image(40, 40), class: 'mr-3', id: "delete_icon_#{chat.id}" %>
+  <%= link_to "削除", chat_path(chat), method: :delete, "data-confirm" => "本当に削除しますか？",
+      class: 'ml-3 btn btn btn-danger', remote: true, id: "delete_chat_#{chat.id}" %>
+</div>
