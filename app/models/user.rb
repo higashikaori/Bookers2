@@ -19,6 +19,8 @@ class User < ApplicationRecord
   has_many :chats, dependent: :destroy
   has_many :rooms, dependent: :destroy
 
+  has_many :view_counts, dependent: :destroy
+
   validates :name, uniqueness: { scope: :name }, length: { in: 2..20 }
   validates :introduction, length: { maximum: 50 }
 
