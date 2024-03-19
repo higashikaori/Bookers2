@@ -1,23 +1,32 @@
-<h2><%= @user.name %>さんとのチャット</h2>
+<div class="container px-5 px-sm-0">
+  <h2><%= @user.name %>さんとのチャット</h2>
+  <div class="row mt-5">
 
-<div>
-  <% @chats.each do |chat| %>
-    <% if chat.user_id == current_user.id %>
-      <div>
-        <p><%= chat.message %></p>
-        <%= link_to "削除", chat_path(chat), method: :delete, "data-confirm" => "本当に削除しますか？" %>
-      </div>
-    <% else %>
-      <div>
-        <%= image_tag @user.get_profile_image, size: '40x40' %>
-        <%= chat.message %>
-      </div>
+  <div class="col">
+  <div class="col-7 message">
+    <% @chats.each do |chat| %>
+      <% if chat.user_id == current_user.id %>
+        <%= render 'chats/chat', chat: chat %>
+      <% else %>
+        <div class="d-flex mb-3">
+          <div>
+            <%= image_tag @user.get_profile_image(40, 40), class: 'mr-3' %><br>
+            <%= @user.name %>
+          </div>
+          <p><%= chat.message %></p>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<%= form_with model: @chat do |f| %>
-  <%= f.text_area :message %>
-  <%= f.submit "送信" %>
-  <%= f.hidden_field :room_id %>
-<% end %>
+  <div class="col-7">
+  <%= form_with model: @chat, local: false do |f| %>
+    <%= f.text_area :message, class: 'form-control' %>
+    <%= f.submit "送信", class: 'btn btn-outline-secondary mt-2' %>
+    <%= f.hidden_field :room_id %>
+  <% end %>
+  </div>
+
+  </div>
+  </div>
+</div>
