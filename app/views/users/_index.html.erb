@@ -1,0 +1,18 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th></th>
+    </tr>
+    <% users.each do |user| %>
+      <tr>
+        <td><%= image_tag user.get_profile_image(100,100) %></td>
+        <td><%= user.name %></td>
+        <td><%= link_to 'Show', user_path(user) %></td>
+        <td><%= user.followers.count %></td>
+        <td><%= render 'relationships/btn', user: user, options: { class: "follow-link" } %></td>
+      </tr>
+    <% end %>
+  </thead>
+</table>
