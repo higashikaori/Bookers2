@@ -48,6 +48,10 @@
 
   <% if current_user != user %>
     <%= render 'relationships/btn', user: user, options: { class: ""} %>
+    <!--current_user != user &&は後で消す-->
+    <% if current_user != user && current_user.following?(user) && user.following?(current_user) %>
+      <%= link_to 'chatを始める', chat_path(user.id), class: "m-2" %>
+    <% end %>
   <% else %>
     <% unless user.guest_user? %>
     <%= link_to edit_user_path(user.id) do %>
