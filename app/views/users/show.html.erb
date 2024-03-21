@@ -19,6 +19,53 @@
           <%= render 'books/index', books: @books %>
         </tbody>
       </table>
+
+<!--投稿数-->
+      <h2>投稿数の前日比・前週比</h2>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>今日の投稿数</th>
+            <th>前日の投稿数</th>
+            <th>前日比</th>
+          </tr>
+          <tr>
+            <td><%= @today_book.count %></td>
+            <td><%= @yesterday_book.count %></td>
+            <td>
+              <% if @yesterday_book.count == 0 %>
+                <p>前日の投稿なし</p>
+              <% else %>
+                <% @comparison_yesterday = @today_book.count / @yesterday_book.count.to_f %>
+                <%= (@comparison_yesterdayk*100).round %>
+              <% end %>
+            </td>
+          </tr>
+        </thead>
+      </table>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>今週の投稿数</th>
+            <th>前週の投稿数</th>
+            <th>前週比</th>
+          </tr>
+          <tr>
+            <td><%= @thisweek_book.count %></td>
+            <td><%= @lastweek_book.count %></td>
+            <td>
+              <% if @lastweek_book.count == 0 %>
+                <p>前週の投稿なし</p>
+              <% else %>
+                <% @comparison_lastweek = @thisweek_book.count / @lastweek_book.count.to_f %>
+                <%= (@comparison_lastweek*100).round %>
+              <% end %>
+            </td>
+          </tr>
+        </thead>
+      </table>
     </div>
+
   </div>
 </div>
