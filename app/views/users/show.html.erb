@@ -22,6 +22,72 @@
 
 <!--投稿数-->
       <h2>投稿数の前日比・前週比</h2>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>６日前</th>
+            <th>５日前</th>
+            <th>４日前</th>
+            <th>３日前</th>
+            <th>２日前</th>
+            <th>１日前</th>
+            <th>今日</th>
+          </tr>
+          <tr>
+            <td><%= @books.created_6day_ago.count %></td>
+            <td><%= @books.created_5day_ago.count %></td>
+            <td><%= @books.created_4day_ago.count %></td>
+            <td><%= @books.created_3day_ago.count %></td>
+            <td><%= @books.created_2day_ago.count %></td>
+            <td><%= @yesterday_book.count %></td>
+            <td><%= @today_book.count %></td>
+          </tr>
+        </thead>
+      </table>
+
+      <div>
+  <canvas id="myChart"></canvas>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+  $(document).on('turbolinks:load', function () {
+    const ctx = document.getElementById('myChart');
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: ['６日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
+        datasets: [{
+          label: '７日間の投稿数の比較投稿した本の数 投稿した本の数',
+          data: [
+            <%= @books.created_6day_ago.count %>,
+            <%= @books.created_5day_ago.count %>,
+            <%= @books.created_4day_ago.count %>,
+            <%= @books.created_3day_ago.count %>,
+            <%= @books.created_2day_ago.count %>,
+            <%= @yesterday_book.count %>,
+            <%= @today_book.count %>
+            ],
+          tension: 0.5,
+          borderColor: '#6a5acd',
+          borderWidth: 3
+        }]
+      },
+      options: {
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
+      }
+    });
+  });
+</script>
+
+
       <table class="table table-bordered">
         <thead>
           <tr>
