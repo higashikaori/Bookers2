@@ -20,7 +20,19 @@
         </tbody>
       </table>
 
-<!--投稿数-->
+<!--投稿数検索-->
+      <%= form_with url:user_search_path(@user), method: :get, local: false, class: "mb-3" do |f| %>
+        <%= f.date_field :created_at %>
+        <%= f.submit '検索', class: "btn btn-primary" %>
+      <% end %>
+
+      <div id="search_result", class: "mb-5">
+        <% if @search_book.present? %>
+          <%= render 'search', search_book: @search_book %>
+        <% end %>
+      </div>
+
+<!--一週間の投稿数一覧-->
       <h2>投稿数の前日比・前週比</h2>
 
       <table class="table table-bordered">
@@ -46,48 +58,52 @@
         </thead>
       </table>
 
+<!--一週間の投稿数グラフ-->
       <div>
-  <canvas id="myChart"></canvas>
-</div>
+        <canvas id="myChart"></canvas>
+      </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+      <script>
+        $(document).on('turbolinks:load', function () {
+          const ctx = document.getElementById('myChart');
 
-<script>
-  $(document).on('turbolinks:load', function () {
-    const ctx = document.getElementById('myChart');
+          new Chart(ctx, {
+            type: 'line',
+            data: {
+              labels: ['６日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
+              datasets: [{
+                label: '投稿した本の数',
+                data: [
+                  <%= @books.created_6day_ago.count %>,
+                  <%= @books.created_5day_ago.count %>,
+                  <%= @books.created_4day_ago.count %>,
+                  <%= @books.created_3day_ago.count %>,
+                  <%= @books.created_2day_ago.count %>,
+                  <%= @yesterday_book.count %>,
+                  <%= @today_book.count %>
+                  ],
+                tension: 0.5,
+                borderColor: '#6a5acd',
+                borderWidth: 3
+              }]
+            },
+            options: {
+              title: {
+          display: true,
+          text: '７日間の投稿数の比較投稿した本の数'
+        },
+              scales: {
+                y: {
+                  beginAtZero: true
+                },
+              },
+            }
+          });
+        });
+      </script>
 
-    new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: ['６日前', '５日前', '４日前', '３日前', '２日前', '１日前', '今日'],
-        datasets: [{
-          label: '７日間の投稿数の比較投稿した本の数 投稿した本の数',
-          data: [
-            <%= @books.created_6day_ago.count %>,
-            <%= @books.created_5day_ago.count %>,
-            <%= @books.created_4day_ago.count %>,
-            <%= @books.created_3day_ago.count %>,
-            <%= @books.created_2day_ago.count %>,
-            <%= @yesterday_book.count %>,
-            <%= @today_book.count %>
-            ],
-          tension: 0.5,
-          borderColor: '#6a5acd',
-          borderWidth: 3
-        }]
-      },
-      options: {
-        scales: {
-          y: {
-            beginAtZero: true
-          }
-        }
-      }
-    });
-  });
-</script>
 
-
+<!--前日比・前週比の投稿-->
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -103,7 +119,7 @@
                 <p>前日の投稿なし</p>
               <% else %>
                 <% @comparison_yesterday = @today_book.count / @yesterday_book.count.to_f %>
-                <%= (@comparison_yesterdayk*100).round %>
+                <%= (@comparison_yesterday*100).round %>%
               <% end %>
             </td>
           </tr>
@@ -125,7 +141,7 @@
                 <p>前週の投稿なし</p>
               <% else %>
                 <% @comparison_lastweek = @thisweek_book.count / @lastweek_book.count.to_f %>
-                <%= (@comparison_lastweek*100).round %>
+                <%= (@comparison_lastweek*100).round %>%
               <% end %>
             </td>
           </tr>
