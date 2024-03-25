@@ -2,7 +2,9 @@
   <div class="row">
 
 <!--テンプレート-->
-    <%= render 'books/book', new_book: @new_book, user: @user %>
+    <div class="col-md-3">
+      <%= render 'books/book', new_book: @new_book, user: @user %>
+    </div>
 
 <!--usersの詳細-->
     <div class="col-md-8 offset-md-1">
@@ -94,7 +96,8 @@
         },
               scales: {
                 y: {
-                  beginAtZero: true
+                   suggestedMin: 0,
+                   suggestedMax: 10
                 },
               },
             }
@@ -116,7 +119,7 @@
             <td><%= @yesterday_book.count %></td>
             <td>
               <% if @yesterday_book.count == 0 %>
-                <p>前日の投稿なし</p>
+                前日の投稿が0のため計算できません
               <% else %>
                 <% @comparison_yesterday = @today_book.count / @yesterday_book.count.to_f %>
                 <%= (@comparison_yesterday*100).round %>%
