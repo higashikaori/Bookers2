@@ -10,6 +10,7 @@
   <td class="favorite-btn">
     <%= render 'favorites/favorite-btn', book: book %>
   </td>
+  <td><%= render "books/static_rate", book: book %></td>
   <td>閲覧数 <%= book.view_counts.count %></td>
   </tr>
 <% end %>
